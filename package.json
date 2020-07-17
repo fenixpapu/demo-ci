@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/fenixpapu/demo-ci/issues"
   },
-  "homepage": "https://github.com/fenixpapu/demo-ci#readme"
+  "homepage": "https://github.com/fenixpapu/demo-ci#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
