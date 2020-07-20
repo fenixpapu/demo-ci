@@ -12,6 +12,6 @@ job_on_dev:
     - chmod 700 ~/.ssh
     - ssh-add - <<< "${DEV_SSH_PRIVATE_KEY}"
     - ssh-keyscan 172.17.0.4 >> ~/.ssh/known_hosts
-    - ssh root@172.17.0.4 "hostname && pwd && cd /usr/src/app && git checkout dev git pull && git log --pretty=format:'%h | %s | %an | %cd -> %cr' -n 1"
+    - ssh root@172.17.0.4 "hostname && pwd && cd /usr/src/app && git checkout dev && git pull && git log --pretty=format:'%h | %s | %an | %cd -> %cr' -n 1"
   only:
     - dev
