@@ -1,0 +1,17 @@
+before_script:
+  - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
+  - eval $(ssh-agent -s)
+  - mkdir -p ~/.ssh && touch ~/.ssh/known_hosts && touch ~/.ssh/config
+  - echo  "edit file ssh config permission"
+  - chmod 600 ~/.ssh/config
+
+job_on_dev:
+  script:
+    - echo -e "$DEV_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - ssh-add - <<< "${DEV_SSH_PRIVATE_KEY}"
+    - ssh-keyscan 172.17.0.4 >> ~/.ssh/known_hosts
+    - ssh root@172.17.0.4 "hostname && pwd && cd /usr/src/app && git checkout dev git pull && git log --pretty=format:'%h | %s | %an | %cd -> %cr' -n 1"
+  only:
+    - dev
